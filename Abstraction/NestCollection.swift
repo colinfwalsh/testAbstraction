@@ -17,6 +17,7 @@ protocol NestModelProtocol {
 protocol NestCompatable {
     var reuseIdentifier: String {get}
     var items: [Any] {get set}
+    var childDataSource: NestDataSourceProtocol? {get set}
 }
 
 protocol NestTableCompatable: NestCompatable {
@@ -42,29 +43,52 @@ protocol NestDataSourceProtocol {
 // Broad model protocol?  Or is this good enough?  For instance, the datasource should probably be set here, and ignored later on
 // at the NestCollectionCell
 class TestModel: NestTableCompatable {
+    var childDataSource: NestDataSourceProtocol?
     var items: [Any] // This should probably change
     var reuseIdentifier: String {
-        return "SomeIdentifier"
+        return "TestIdentifier"
     }
     
-    init(_ items: [String]) {
+    init(_ items: [String], childDataSource: NestDataSourceProtocol?) {
         self.items = items
+        self.childDataSource = childDataSource
     }
     
+    // Something like this
     func cellForTableView(tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell =
+            tableView.dequeueReusableCell(
+                        withIdentifier: reuseIdentifier) as? NestTableCell
+        else {return UITableViewCell()}
+        if let childDataSource = childDataSource {
+            cell.configureWithDataSource(childDataSource, items: self.items)
+        }
+        return cell
     }
 }
 
 // So the idea here is to dynamically set the dataSource based on nestType
 protocol NestCellProtocol {
-    func configureWithDataSource(_ dataSource: NestDataSourceProtocol)
+    func configureWithDataSource(_ dataSource: NestDataSourceProtocol, items: [Any])
 }
-
+class NestTableCell: UITableViewCell, NestCellProtocol {
+    func configureWithDataSource(_ dataSource: NestDataSourceProtocol, items: [Any]) {
+        switch dataSource.nestType {
+        case .table:
+            print("It's a table view")
+        //ie self.tableView.dataSource = dataSource
+        case .collection:
+            print("It's a collection view")
+        //ie self.collectionView.dataSource = dataSource
+        default:
+            fatalError("Incorrectly set datasource, make sure everything is correct")
+        }
+    }
+}
 class NestCollectionCell: UICollectionViewCell, NestCellProtocol {
     
     // Something like this to set the dataSource
-    func configureWithDataSource(_ dataSource: NestDataSourceProtocol) {
+    func configureWithDataSource(_ dataSource: NestDataSourceProtocol, items: [Any]) {
         switch dataSource.nestType {
         case .table:
             print("It's a table view")
