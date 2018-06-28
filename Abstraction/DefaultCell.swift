@@ -9,10 +9,16 @@
 import UIKit
 
 class DefaultCell: UICollectionViewCell {
-    @IBOutlet weak var tableView: UITableView!
-    
+    // Should I bind viewModel here as well?
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    // Essentially viewDidLoad
     override func layoutSubviews() {
         super.layoutSubviews()
+        // Sets the look of the collectionView cell
         self.contentView.layer.cornerRadius = 4.0
         self.contentView.layer.backgroundColor = UIColor.gray.cgColor
         self.contentView.layer.borderWidth = 1.0
@@ -25,4 +31,5 @@ class DefaultCell: UICollectionViewCell {
         self.layer.masksToBounds = false
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
     }
+    
 }

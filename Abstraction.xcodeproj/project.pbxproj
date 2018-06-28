@@ -17,6 +17,8 @@
 		AF84128520CF15230067BBD2 /* DefaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF84128420CF15230067BBD2 /* DefaultCell.swift */; };
 		AF84128920CF1A9B0067BBD2 /* TableViewNest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF84128820CF1A9B0067BBD2 /* TableViewNest.swift */; };
 		AF84128B20CF1AFC0067BBD2 /* TableViewNestDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF84128A20CF1AFC0067BBD2 /* TableViewNestDataSource.swift */; };
+		AFC1C78020E55F9200B1241B /* NestCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1C77F20E55F9200B1241B /* NestCollection.swift */; };
+		AFC1C78220E56D1600B1241B /* NestCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1C78120E56D1600B1241B /* NestCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		AF84128420CF15230067BBD2 /* DefaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCell.swift; sourceTree = "<group>"; };
 		AF84128820CF1A9B0067BBD2 /* TableViewNest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewNest.swift; sourceTree = "<group>"; };
 		AF84128A20CF1AFC0067BBD2 /* TableViewNestDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewNestDataSource.swift; sourceTree = "<group>"; };
+		AFC1C77F20E55F9200B1241B /* NestCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestCollection.swift; sourceTree = "<group>"; };
+		AFC1C78120E56D1600B1241B /* NestCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestCollectionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,9 +109,11 @@
 			children = (
 				AF84125620CF13A00067BBD2 /* AppDelegate.swift */,
 				AF84125820CF13A00067BBD2 /* ViewController.swift */,
-				AF84128820CF1A9B0067BBD2 /* TableViewNest.swift */,
+				AFC1C77F20E55F9200B1241B /* NestCollection.swift */,
+				AFC1C78120E56D1600B1241B /* NestCollectionCell.swift */,
 				AF84125A20CF13A10067BBD2 /* Main.storyboard */,
 				AF84128420CF15230067BBD2 /* DefaultCell.swift */,
+				AF84128820CF1A9B0067BBD2 /* TableViewNest.swift */,
 				AF84128A20CF1AFC0067BBD2 /* TableViewNestDataSource.swift */,
 				AF84125D20CF13A10067BBD2 /* Assets.xcassets */,
 				AF84125F20CF13A10067BBD2 /* LaunchScreen.storyboard */,
@@ -272,7 +278,9 @@
 				AF84128520CF15230067BBD2 /* DefaultCell.swift in Sources */,
 				AF84128B20CF1AFC0067BBD2 /* TableViewNestDataSource.swift in Sources */,
 				AF84125720CF13A00067BBD2 /* AppDelegate.swift in Sources */,
+				AFC1C78220E56D1600B1241B /* NestCollectionCell.swift in Sources */,
 				AF84128920CF1A9B0067BBD2 /* TableViewNest.swift in Sources */,
+				AFC1C78020E55F9200B1241B /* NestCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
