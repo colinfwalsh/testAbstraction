@@ -58,10 +58,10 @@ class TestModel: NestTableCompatable {
     func cellForTableView(tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell {
         guard let cell =
             tableView.dequeueReusableCell(
-                        withIdentifier: reuseIdentifier) as? NestTableCell
-        else {return UITableViewCell()}
+                withIdentifier: reuseIdentifier) as? NestTableCell
+            else {return UITableViewCell()}
         if let childDataSource = childDataSource {
-            cell.configureWithDataSource(childDataSource, items: self.items)
+            cell.configureWithDataSource(childDataSource)
         }
         return cell
     }
@@ -69,9 +69,32 @@ class TestModel: NestTableCompatable {
 
 // So the idea here is to dynamically set the dataSource based on nestType
 protocol NestCellProtocol {
-    func configureWithDataSource(_ dataSource: NestDataSourceProtocol, items: [Any])
+    var scrollView: UIScrollView? {get set}
+    func configureWithDataSource(_ dataSource: NestDataSourceProtocol)
+}
+
+extension NestCellProtocol {
+    func configureWithDataSource(_ dataSource: NestDataSourceProtocol) {
+        switch dataSource.nestType {
+        case .table:
+            print("It's a table view")
+            let dataSource = dataSource as? UITableViewDataSource
+            (scrollView as? UITableView)?.dataSource = dataSource
+        case .collection:
+            let dataSource = dataSource as? UICollectionViewDataSource
+            (scrollView as? UICollectionView)?.dataSource = dataSource
+        default:
+            fatalError("Incorrectly set datasource, make sure everything is correct")
+        }
+    }
 }
 class NestTableCell: UITableViewCell, NestCellProtocol {
+    var scrollView: UIScrollView?
+}
+/*
+class NestCollectionCell: UICollectionViewCell, NestCellProtocol {
+    
+    // Something like this to set the dataSource
     func configureWithDataSource(_ dataSource: NestDataSourceProtocol, items: [Any]) {
         switch dataSource.nestType {
         case .table:
@@ -85,23 +108,7 @@ class NestTableCell: UITableViewCell, NestCellProtocol {
         }
     }
 }
-class NestCollectionCell: UICollectionViewCell, NestCellProtocol {
-    
-    // Something like this to set the dataSource
-    func configureWithDataSource(_ dataSource: NestDataSourceProtocol, items: [Any]) {
-        switch dataSource.nestType {
-        case .table:
-            print("It's a table view")
-            //ie self.tableView.dataSource = dataSource
-        case .collection:
-            print("It's a collection view")
-            //ie self.collectionView.dataSource = dataSource
-        default:
-            fatalError("Incorrectly set datasource, make sure everything is correct")
-        }
-    }
-}
-
+*/
 class NestCollectionSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
@@ -109,13 +116,13 @@ class NestCollectionSource: NSObject, UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         /*
-        let nestCell = NestCollectionCell(["item"], nestType: .collection)
-        return nestCell!
+         let nestCell = NestCollectionCell(["item"], nestType: .collection)
+         return nestCell!
          */
         return UICollectionViewCell()
     }
 }
 
 class NestCollection: UICollectionView {
-
+    
 }
