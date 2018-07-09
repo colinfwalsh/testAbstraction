@@ -10,28 +10,19 @@ import UIKit
 
 class HomeViewController: UITableViewController {
     
-    let testarray = [["apple", "pear", "danish", "pizza"], ["banana", "apple", "pear", "danish"], ["pizza", "banana", "apple", "pear"], ["danisvar", "pizza", "banana"]]
+    let testArray1 = [["apple", "pear", "danish", "pizza"], ["math", "english", "gym", "orchestra"]]
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.backgroundColor = .gray
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return testarray.count
+        return testArray1.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return testarray[section].count
+        return testArray1[section].count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -41,14 +32,16 @@ class HomeViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "test", for: indexPath) as! TestTableViewCell
-        cell.title.text = testarray[indexPath.section][indexPath.row]
+        cell.title.text = testArray1[indexPath.section][indexPath.row]
         
-        if testarray[indexPath.section][indexPath.row] == testarray[indexPath.section].first {
+        switch indexPath.row {
+        case 0:
             cell.corner = SetCorners.top
-        }
-        if testarray[indexPath.section][indexPath.row] == testarray[indexPath.section].last! {
-            print("Now I'm in here")
+        case self.tableView(tableView, numberOfRowsInSection: indexPath.section) - 1:
             cell.corner = SetCorners.bottom
+        default:
+            cell.corner = .none
+            
         }
 
         return cell

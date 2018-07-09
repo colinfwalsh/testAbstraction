@@ -36,7 +36,6 @@ class TestTableViewCell: UITableViewCell {
     }
 }
 
-
 extension UIView {
     
     func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
