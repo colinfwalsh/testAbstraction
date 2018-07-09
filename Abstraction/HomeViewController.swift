@@ -31,7 +31,14 @@ class HomeViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "test", for: indexPath) as! TestTableViewCell
+       
+        // Set dynamically based on cell type
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "test", for: indexPath) as? TestTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        
+        
         cell.title.text = testArray1[indexPath.section][indexPath.row]
         
         switch indexPath.row {
